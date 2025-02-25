@@ -35,7 +35,7 @@ jobs:
             ls
             pwd
             git pull origin main
-            cd testing-devops
+            /projects/gitops/testing-devops
             pwd
             npm install 
             docker -v 
