@@ -27,18 +27,13 @@ jobs:
 
       - name: Deploy Frontend
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.107.236.254<< EOF
             ls
             pwd
+            cd /projects/gitops/testing-devops
             git pull origin main
-            /projects/gitops/testing-devops
             pwd
             npm install 
             docker -v 
             docker-compose -f docker-compose.yaml up -d
-          EOF
+          
       
