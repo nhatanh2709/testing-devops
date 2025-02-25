@@ -30,6 +30,7 @@ jobs:
             ls
             pwd
             cd /projects/gitops/testing-devops
+            git config --global --add safe.directory /projects/gitops/testing-devops
             git pull origin main
             pwd
             npm install 
