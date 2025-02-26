@@ -47,7 +47,8 @@ jobs:
             cd /projects/gitops/testing-devops
             git config --global --add safe.directory /projects/gitops/testing-devops
             git pull origin main
-            sudo docker rm -f $(docker ps -aq)
+            docker-compose down
+            docker-compose pull 
             docker-compose -f docker-compose.yaml up -d
 
 
