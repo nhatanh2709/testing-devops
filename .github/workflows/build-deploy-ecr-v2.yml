@@ -38,10 +38,8 @@ jobs:
 
   deploy:
     runs-on: self-hosted
-
-   
+    needs: build
     steps:
-      - uses: actions/checkout@v4
       - name: Deploy Frontend
         run: |
             ls
