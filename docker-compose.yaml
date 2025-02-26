@@ -17,6 +17,7 @@ services:
       - db
 
   db:
+    container_name: mongodb
     image: mongo:6
     ports:
       - "27017:27017" # Map port cho MongoDB (tùy chọn)

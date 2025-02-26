@@ -24,7 +24,9 @@ pipeline {
                         cd ${env.REPO_DIR}
                         pwd
                         git pull origin main
-			sudo docker rm -f \$(docker ps -aq)
+			sudo docker rm -f testing-devops-db-1
+			sudo docker rm -f nginx-reverse-proxy
+			sudo docker rm -f mongodb
                         sudo docker compose up -d --build
                     << EOF
                     """
