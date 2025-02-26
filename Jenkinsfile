@@ -9,28 +9,29 @@ pipeline {
 
   stages {
     stage('Checkout Code') {
-      steps {
-        checkout scm
-      }
+        steps {
+            checkout scm
+        }
     }
+    stage('Deploy to EC2') {
+        steps {
+            script {
+                sshagent(['jenkins_server_key']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
+                        ls
+                        pwd
+                        cd ${REPO_DIR}
+                        pwd
+                        git pull origin main
+                        sudo docker compose up -d --build
+                    EOF
+                    """
+                    }
+                }
+            }
+        }
   }
-  stage('Deploy to EC2') {
-    steps {
-        script {
-          sshagent(['jenkins_server_key']) { 
-            sh """
-            ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
-                ls
-                pwd
-                cd ${REPO_DIR}
-                pwd
-                git pull origin main
-                sudo docker compose up -d --build
-            EOF
-            """
-        }
-        }
-    }
-    }
+ 
 }
 
