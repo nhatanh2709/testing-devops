@@ -17,7 +17,7 @@ pipeline {
   stage('Deploy to EC2') {
     steps {
         script {
-        sshagent(['aws_ec2_key']) { 
+          sshagent(['jenkins_server_key']) { 
             sh """
             ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
                 ls
