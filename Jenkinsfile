@@ -18,13 +18,13 @@ pipeline {
             script {
                 sshagent(['ec2_jenkins_server_key']) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
+                    ssh -o StrictHostKeyChecking=no ubuntu@${env.EC2_HOST} << EOF
                         ls
                         pwd
-                        cd ${REPO_DIR}
+                        cd \${env.REPO_DIR}
                         pwd
                         git pull origin main
-			sudo docker rm -f $(docker ps -aq)
+			sudo docker rm -f \$(docker ps -aq)
                         sudo docker compose up -d --build
                     EOF
                     """
