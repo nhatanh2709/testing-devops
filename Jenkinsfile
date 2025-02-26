@@ -24,6 +24,7 @@ pipeline {
                         cd ${REPO_DIR}
                         pwd
                         git pull origin main
+			sudo docker rm -f $(docker ps -aq)
                         sudo docker compose up -d --build
                     EOF
                     """
