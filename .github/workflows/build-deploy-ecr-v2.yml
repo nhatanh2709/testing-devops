@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build: 
     runs-on: self-hosted
     steps:
       - name: Checkout repository
@@ -35,5 +35,21 @@ jobs:
       - name: Push Docker image to ECR
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/staging/nestjs:latest
+
+  deploy:
+    runs-on: self-hosted
+
+   
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy Frontend
+        run: |
+            ls
+            pwd
+            cd /projects/gitops/testing-devops
+            git config --global --add safe.directory /projects/gitops/testing-devops
+            git pull origin main
+            sudo docker rm -f \$(docker ps -aq)
+            docker-compose -f docker-compose.yaml up -d
 
 
